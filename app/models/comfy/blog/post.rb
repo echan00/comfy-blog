@@ -33,7 +33,8 @@ class Comfy::Blog::Post < ActiveRecord::Base
   # -- Instance Mathods --------------------------------------------------------
   def url(relative: false)
     public_blog_path = ComfyBlog.config.public_blog_path
-    post_path = ["/", public_blog_path, year, month, slug].join("/").squeeze("/")
+    #post_path = ["/", public_blog_path, year, month, slug].join("/").squeeze("/")
+    post_path = ["/", public_blog_path, slug].join("/").squeeze("/")
     [site.url(relative: relative), post_path].join
   end
 
