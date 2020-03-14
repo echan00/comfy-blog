@@ -24,7 +24,6 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
     load_post
     @recent_posts = @cms_site.blog_posts.published.order(:published_at).reverse_order
 
-    @top_posts = []
     @top_posts = Rails.cache.fetch("top_blog_posts", expires_in: 10.days) do
       boo = Ahoy::Event.group(:properties).count
       boo.each do |k,v|
