@@ -22,7 +22,21 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
 
   def show
     load_post
+    @recent_posts = @cms_site.blog_posts.published.order(:published_at).reverse_order
 
+    @top_posts = []
+    Rails.cache.fetch("top_blog_posts", expires_in: 7.days) do
+      boo = Ahoy::Event.group(:properties).count
+      boo.each do |k,v|
+          boo.except!(k) unless k['slug'].present?
+      end
+      boo = Hash[boo.sort_by{|k, v| v}.reverse]
+      boo = Hash[boo.sort_by { |k,v| -v }[0..9]]
+      boo.each do |k,v|        
+          @top_posts.append(Comfy::Blog::Post.find_by(slug: k['slug']))
+      end
+    end
+    
     render layout: app_layout
 
   rescue ActiveRecord::RecordNotFound
