@@ -36,6 +36,7 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
       boo.each do |k,v|        
           @top_posts.append(Comfy::Blog::Post.find_by(slug: k['slug']))
       end
+      @top_posts
     end
     
     render layout: app_layout
