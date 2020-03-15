@@ -22,7 +22,7 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
 
   def show
     load_post
-    #@top_posts, @recent_posts = Rails.cache.fetch("top_recent_blog_posts", expires_in: 10.days) do
+    @top_posts, @recent_posts = Rails.cache.fetch("top_recent_blog_posts", expires_in: 10.days) do
       @recent_posts = @cms_site.blog_posts.published.order(:published_at).reverse_order.limit(10)
       @top_posts ||= []
       boo = Ahoy::Event.group(:properties).count
@@ -34,7 +34,7 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
       boo.each do |k,v|        
           @top_posts.append(Comfy::Blog::Post.find_by(slug: k['slug']))
       end
-    #end
+    end
     
     render layout: app_layout
 
