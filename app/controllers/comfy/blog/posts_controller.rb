@@ -67,6 +67,10 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
       @tags = Comfy::Cms::Category.of_type('Comfy::Blog::Post').all
     end
     
+    @post_tags = Rails.cache.fetch(['blog_tag',@cms_post.id], expires_in: 10.days) do 
+      @post_tags = @cms_post.categories
+    end
+    
     render layout: app_layout
 
   rescue ActiveRecord::RecordNotFound
