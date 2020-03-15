@@ -12,7 +12,7 @@ class ActionDispatch::Routing::Mapper
           o.get ":year",              to: "posts#index",  as: :posts_of_year
           o.get ":year/:month",       to: "posts#index",  as: :posts_of_month
           o.get ":slug", to: "posts#show",   as: :post          
-          o.get ":year/:month/:slug", to: "posts#show",   as: :post
+          #o.get ":year/:month/:slug", to: "posts#show",   as: :post
           o.get "/",                  to: "posts#index",  as: :posts
         end
       end
