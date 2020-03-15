@@ -21,7 +21,7 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
 
   def show
     load_post
-    @recent_posts.fetch('top_recent_posts', expires_in: 1.day) do 
+    @recent_posts = Rails.cache.fetch('top_recent_posts', expires_in: 1.day) do 
       @recent_posts = @cms_site.blog_posts.published.order(:published_at).reverse_order.limit(10)
     end
   
