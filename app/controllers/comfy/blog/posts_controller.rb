@@ -15,9 +15,8 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
     scope = scope.for_category(params[:category]) if params[:category]
     scope = scope.order(:published_at).reverse_order
 
-    @blog_posts = Rails.cache.fetch('all_blog_posts', expires_in: 1.day) do  
-      @blog_posts = comfy_paginate(scope, per_page: ComfyBlog.config.posts_per_page)
-    end
+
+    @blog_posts = comfy_paginate(scope, per_page: ComfyBlog.config.posts_per_page)
     
     @recent_posts = Rails.cache.fetch('recent_blog_posts', expires_in: 1.day) do 
       @recent_posts = @cms_site.blog_posts.published.order(:published_at).reverse_order.limit(10)
