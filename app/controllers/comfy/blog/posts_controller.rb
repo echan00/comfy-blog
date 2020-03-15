@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Comfy::Blog::PostsController < Comfy::Cms::BaseController
-  caches_page :show
   include Comfy::Paginate
 
   def index
