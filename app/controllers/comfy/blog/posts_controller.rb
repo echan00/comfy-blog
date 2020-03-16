@@ -40,6 +40,8 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
       @tags = Comfy::Cms::Category.of_type('Comfy::Blog::Post').all
     end    
     
+    @contact = Contact.new
+    
     render layout: ComfyBlog.config.app_layout
   end
 
@@ -70,6 +72,8 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
     @post_tags = Rails.cache.fetch(['blog_tag',@cms_post.id], expires_in: 10.days) do 
       @post_tags = @cms_post.categories
     end
+    
+    @contact = Contact.new
     
     render layout: app_layout
 
