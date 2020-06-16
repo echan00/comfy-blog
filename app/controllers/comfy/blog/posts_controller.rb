@@ -28,6 +28,13 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
       boo.each do |k,v|
           boo.except!(k) unless k['slug'].present?
       end
+      boo.each do |k,v|
+        if k['cms_path'].present?    
+          value = v.clone
+          k.except!('cms_path')
+          boo[k] += value 
+        end
+      end      
       boo = Hash[boo.sort_by{|k, v| v}.reverse]
       boo = Hash[boo.sort_by { |k,v| -v }[0..9]]
       boo.each do |k,v|        
@@ -57,6 +64,13 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
       boo.each do |k,v|
           boo.except!(k) unless k['slug'].present?
       end
+      boo.each do |k,v|
+        if k['cms_path'].present?    
+          value = v.clone
+          k.except!('cms_path')
+          boo[k] += value 
+        end
+      end      
       boo = Hash[boo.sort_by{|k, v| v}.reverse]
       boo = Hash[boo.sort_by { |k,v| -v }[0..9]]
       boo.each do |k,v|        
