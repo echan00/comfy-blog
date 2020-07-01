@@ -32,7 +32,9 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
         if k['cms_path'].present?    
           value = v.clone
           k.except!('cms_path')
-          boo[k] += value 
+          if k['action'] == 'show' && boo[k].present?
+            boo[k] += value
+          end
         end
       end      
       boo = Hash[boo.sort_by{|k, v| v}.reverse]
@@ -68,7 +70,9 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
         if k['cms_path'].present?    
           value = v.clone
           k.except!('cms_path')
-          boo[k] += value 
+          if k['action'] == 'show' && boo[k].present?
+            boo[k] += value
+          end
         end
       end      
       boo = Hash[boo.sort_by{|k, v| v}.reverse]
