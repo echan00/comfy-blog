@@ -96,7 +96,7 @@ class Comfy::Blog::PostsController < Comfy::Cms::BaseController
     render layout: app_layout
 
   rescue ActiveRecord::RecordNotFound
-    render cms_page: "/404", status: 404
+    redirect_to "/404"
   end
 
 private
